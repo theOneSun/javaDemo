@@ -16,8 +16,8 @@ public class BatchUUIDUtils
     public void productUUIDBatch() throws IOException
     {
 //        int max = 290000;
-        int max = 724193-580000;
-//        int max = 94678;
+//        int max = 603272-580000;
+        int max = 51;
 //        System.out.println("-------------------");
         FileWriter fw = new FileWriter(new File("uuidResult.txt" ));
         String id;
