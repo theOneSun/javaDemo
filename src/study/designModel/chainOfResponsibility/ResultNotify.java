@@ -8,6 +8,8 @@ public class ResultNotify {
     private String id;
     private int money;
     private String orderId;
+    private String businessCategory;
+    private String functionCategory;
 
     public ResultNotify() {
     }
@@ -16,6 +18,15 @@ public class ResultNotify {
         this.id = id;
         this.money = money;
         this.orderId = orderId;
+    }
+
+    public ResultNotify(String id, int money, String orderId, String businessCategory, String functionCategory)
+    {
+        this.id = id;
+        this.money = money;
+        this.orderId = orderId;
+        this.businessCategory = businessCategory;
+        this.functionCategory = functionCategory;
     }
 
     public String getId() {
@@ -40,5 +51,25 @@ public class ResultNotify {
 
     public void setOrderId(String orderId) {
         this.orderId = orderId;
+    }
+
+    public String getBusinessCategory()
+    {
+        return businessCategory;
+    }
+
+    public void setBusinessCategory(String businessCategory)
+    {
+        this.businessCategory = businessCategory;
+    }
+
+    public String getFunctionCategory()
+    {
+        return functionCategory;
+    }
+
+    public void setFunctionCategory(String functionCategory)
+    {
+        this.functionCategory = functionCategory;
     }
 }

@@ -1,10 +1,20 @@
 package study.designModel.chainOfResponsibility;
 
+import org.junit.Test;
+
 /**
- * Created by sj on 2017/12/28.
+ * 测试类
+ *
+ * @author sunjian.
  */
-public class HandleResultChain {
-    public static void main(String[] args) {
+public class ChainTest
+{
+
+    /**
+     * 一般的责任链,一个对象持有下一个对象
+     */
+    @Test
+    public void normalDemo(){
         ResultHandler carResultHandler = new CarResultHandler();
         ResultHandler cityResultHandler = new CityResultHandler();
         ResultHandler mealResultHandler = new MealResultHandler();
@@ -23,6 +33,5 @@ public class HandleResultChain {
         entranceResultHandler.handleRequest(resultNotify1);
         entranceResultHandler.handleRequest(resultNotify2);
         entranceResultHandler.handleRequest(resultNotify3);
-
     }
 }
