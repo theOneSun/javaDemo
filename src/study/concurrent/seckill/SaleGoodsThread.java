@@ -1,6 +1,6 @@
 package study.concurrent.seckill;
 
-import javax.sound.sampled.Mixer;
+import com.sun.javafx.image.BytePixelSetter;
 
 /**
  * @author sunjian.
@@ -101,7 +101,14 @@ public class SaleGoodsThread implements Runnable
         if (max > 0)
         {
             max--;
-            System.out.println(way + Thread.currentThread().getName() + "卖出了一张票,还剩" + max + "张票");
+            if (max == 0)
+            {
+                System.out.println(way + Thread.currentThread().getName() + "卖出了一张票,还剩" + max + "张票");
+                System.out.println("票已售罄" + Thread.currentThread().getName());
+            } else
+            {
+                System.out.println(way + Thread.currentThread().getName() + "卖出了一张票,还剩" + max + "张票");
+            }
             Thread.sleep(100);
         } else
         {
