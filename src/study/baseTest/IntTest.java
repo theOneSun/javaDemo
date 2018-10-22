@@ -22,4 +22,13 @@ public class IntTest
         int discountPrice = (int) (price * v);
         System.out.println(discountPrice);
     }
+
+    @Test
+    public void subtraction() throws Exception
+    {
+        Integer i=1;
+        Integer j=3;
+        System.out.println(i-j);
+        System.out.println(j-i);
+    }
 }

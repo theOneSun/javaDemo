@@ -89,4 +89,18 @@ public class ForTest
         long forTime = endFor - beginFor;
         System.out.println("for用时:   " + forTime);*/
     }
+
+    @Test
+    public void testNull(){
+        List<String[]> list = new ArrayList<>();
+//        list.add(null);
+        String[] a = new String[]{null};
+        list.add(a);
+
+        for (String[] array : list)
+        {
+            System.out.println("asd"+array[0]);
+        }
+        System.out.println("end");
+    }
 }

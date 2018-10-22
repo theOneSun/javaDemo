@@ -1,18 +1,13 @@
 package study.baseTest;
 
+
 import org.junit.Test;
 
-import javax.sound.midi.Soundbank;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 /**
  * @authur sunjian.
@@ -145,5 +140,32 @@ public class ArrayTest
         List<String> stringList = Arrays.asList(strArray);
         Integer[] integers = new Integer[10];
 
+    }
+
+    @Test
+    public void testPrintArray() throws Exception
+    {
+//        String[] array = new String[]{"1","2","3"};
+//        System.out.println(array.toString());
+        List<String> list = new ArrayList<>();
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        System.out.println(list);
+    }
+
+    @Test
+    public void testRemove(){
+        String[] a = {"north","全部"};
+        System.out.println(a[a.length-1]);
+    }
+
+    @Test
+    public void testSub(){
+        String[] index = {"硬件","外部环境","外部卫生"};
+        final String[] result = Arrays.copyOfRange(index, -1, index.length);
+        for (String s : result) {
+            System.out.println(s);
+        }
     }
 }
