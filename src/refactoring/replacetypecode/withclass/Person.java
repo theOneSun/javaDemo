@@ -1,11 +1,8 @@
-package refactoring.replacetypecode.withclass;
-
-import lombok.Data;
+package refactoring.replacetypecode;
 
 /**
  * @author sunjian.
  */
-@Data
 public class Person {
 
     private BloodGroup bloodGroup;

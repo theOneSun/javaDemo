@@ -1,5 +1,6 @@
 package refactoring.replacetypecode.withstrategy.tree;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import study.newClass.domain.IndexTree;
@@ -14,6 +15,7 @@ import java.util.List;
  */
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class SatisfactionTree {
     /**
      * 名称
