@@ -8,6 +8,8 @@ public class BottomGardener implements Gardener
     @Override
     public void run()
     {
+        System.out.println("啦啦啦");
+
         try
         {
             Thread.sleep(3000);

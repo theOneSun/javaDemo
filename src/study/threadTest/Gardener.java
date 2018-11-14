@@ -5,6 +5,5 @@ package study.threadTest;
  */
 public interface Gardener extends Runnable
 {
-    @Override
-    public void run();
+
 }

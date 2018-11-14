@@ -9,6 +9,7 @@ public class TierGardener implements Gardener
     @Override
     public void run()
     {
+        System.out.println("耶耶耶");
         try
         {
             Thread.sleep(3000);
