@@ -1,6 +1,6 @@
 package life;
 
-import org.apache.commons.lang3.StringUtils;
+import org.junit.Test;
 
 import java.util.Scanner;
 
@@ -8,6 +8,7 @@ import java.util.Scanner;
  * 质数乘积是707829217
  * NY大质数在前,小质数在后
  * tzcccdgwthbh
+ * 3出现的次数是:441684627
  * @author sunjian.
  */
 public class PrimeNumber {
@@ -45,17 +46,25 @@ public class PrimeNumber {
         return s;
     }
     //基数中3的个数
-    /*public void get3(){
+    @Test
+    public void get3(){
         long a = 866278171;
-        char target = 3;
+//        long a = 31;
+        String target = "3";
+        int result = 0;
         for (int i=1;i<=a;i=i+2){
             final String s = String.valueOf(i);
-            getCount
+            for (int j=0;j<s.length();j++){
+                if (target.equals(s.substring(j,j+1))){
+                    result++;
+                };
+            }
         }
-
+        System.out.println(result);
+//        441684627
     }
 
-    public int getCount(String s,char target){
+    /*public int getCount(String s,char target){
 
         int result = 0;
         for (char a : chars) {
