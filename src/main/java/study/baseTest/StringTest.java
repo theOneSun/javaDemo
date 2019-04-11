@@ -173,9 +173,12 @@ public class StringTest
     @Test
     public void testDeleteLast(){
         String a = "123123,123,";
-        if (a.lastIndexOf(",") == a.length() -1){
+        /*if (a.lastIndexOf(",") == a.length() -1){
             System.out.println("aaa");
-        }
+        }*/
+        StringBuilder sb = new StringBuilder(a);
+        sb.deleteCharAt(a.lastIndexOf(","));
+        System.out.println(sb.toString());
     }
     @Test
     public void testIndexOf(){

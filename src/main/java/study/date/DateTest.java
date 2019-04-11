@@ -46,6 +46,7 @@ public class DateTest
     {
         LocalDateTime now = LocalDateTime.now();
         System.out.println(now);
+        System.out.println(System.currentTimeMillis());
     }
 
     @Test

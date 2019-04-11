@@ -17,17 +17,17 @@ public class BatchUUIDUtils
     {
 //        int max = 290000;
 //        int max = 603272-580000;
-        int max = 126;
+        int max = 10;
 //        System.out.println("-------------------");
 //        FileWriter fw = new FileWriter(new File("uuidResult.txt" ));
         String id;
-        /*for (int i = 0; i< max; i++){
-            id = UUID.randomUUID().toString().replaceAll("-", "");
+        for (int i = 0; i< max; i++){
+//            id = UUID.randomUUID().toString().replaceAll("-", "");
 //            fw.write(id+"\r\n");
 //            fw.flush();
-            System.out.println(id);
-        }*/
+//            System.out.println(id);
         System.out.println(UUID.randomUUID());
+        }
 //        fw.close();
     }
 
