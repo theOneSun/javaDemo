@@ -40,13 +40,16 @@ public class DoubleTest
     @Test
     public void remain2()
     {
-        Double a = 123.0153918237;
+        Double a = 123.0003918237;
         Double b = 123.0153918237;
         //        System.out.println(Math.round(a * 100) / 100);
 
         DecimalFormat df = new DecimalFormat("#.00");
+        DecimalFormat df2 = new DecimalFormat("#.##");
         long start = System.currentTimeMillis();
         System.out.println(Double.valueOf(df.format(a)));
+        System.out.println(df2.format(a));
+        System.out.println(df.format(a));
         System.out.println("format耗时:" + (System.currentTimeMillis() - start));
 
         long start2 = System.currentTimeMillis();
@@ -66,5 +69,12 @@ public class DoubleTest
         int c = 12;
         System.out.println(a / b);
         System.out.println(a / c);
+    }
+
+    @Test
+    public void showLastZero()
+    {
+        double a = 98.90;
+        System.out.println(a);
     }
 }

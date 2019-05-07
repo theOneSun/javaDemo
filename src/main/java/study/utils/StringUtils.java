@@ -68,10 +68,145 @@ SELECT '电梯设施运行正常' as index_name ,avg((last_level_index_scores->>
                    .append("','")
                    .append(projectId)
                    .append("',")
-                   .append(i).append(")");
+                   .append(i)
+                   .append(")");
             sql.append(tempSql);
         }
         sql.append(")");
         System.out.println(sql.toString());
+    }
+
+    @Test
+    public void generateTopPercentSql() {
+        String[] indexes = new String[]{"管线", "墙面、屋面及地面", "销售顾问专业度", "收房过程", "售楼处物业人员", "整改返修表现", "售后服务", "收房通知信息传达", "社区生活营造氛围", "配套设施", "维修效果", "地下车库道闸系统", "销售服务", "装修管理", "房屋质量", "总体满意度", "维修效率", "收房流程现场秩序", "上下水设施", "承诺兑现及预期", "环境秩序维护", "工作人员沟通情况", "绿化养护", "投诉处理", "社区道路规划", "烟道、排风系统", "房屋结构", "公共区域设计", "楼栋外立面质量", "物业日常维修", "销售承诺", "园林景观", "户内精装修", "安防设计", "采暖设施", "报修渠道", "房屋整洁", "门窗及配件", "电梯", "智能门禁安防系统", "公共区域卫生清洁", "安全管理", "物业服务人员态度", "车辆管理", "维修人员服务态度", "工作人员专业性", "客服反应速度", "问题反馈渠道", "现场服务人员态度", "阳台或露台", "层高设计", "墙体情况", "销售顾问态度", "维修服务", "车库及出入口", "门窗", "渗漏问题", "问题处理有效性", "房屋质量问题", "物业问题反馈及时性", "房屋内部设计", "小区规划", "户型设计", "验房人员专业性", "设施维护", "销售处环境氛围", "手续规范性", "问题回复及时性", "地面和墙面", "物业服务", "宠物管理", "投诉问题反馈及时性", "建筑外立面设计", "维修人员专业性"};
+        /*
+        WITH p AS (SELECT last_level_index_scores FROM project_data
+              WHERE project_id = '9ec537f6-8b3e-441c-95b8-27c99dd9a9c4'
+                AND batch = '2018年')
+        SELECT '管线'                                                             AS index_name,
+               round(count((last_level_index_scores->>'管线') :: numeric >= 7 OR NULL) :: numeric * 100 /
+                     (count(last_level_index_scores->>'管线' NOTNULL OR NULL)), 2) AS score
+        FROM  p
+        UNION ALL
+        SELECT '销售顾问专业度'                                                             AS index_name,
+               round(count((last_level_index_scores->>'销售顾问专业度') :: numeric >= 7 OR NULL) :: numeric * 100 /
+                     (count(last_level_index_scores->>'销售顾问专业度' NOTNULL OR NULL)), 2) AS score
+        FROM  p
+         */
+        /*
+        //union All test
+        StringBuilder sql = new StringBuilder("WITH p AS (SELECT last_level_index_scores FROM project_data  WHERE project_id = '9ec537f6-8b3e-441c-95b8-27c99dd9a9c4' AND batch = '2018年') ");
+        for (int i = 0; i < indexes.length; i++) {
+            String index = indexes[i];
+            StringBuilder tempSql = new StringBuilder();
+            if (i != 0) {
+                tempSql.append(" UNION ALL ");
+            }
+            tempSql.append("SELECT '")
+                   .append(index)
+                   .append("' AS index_name,  round(count((last_level_index_scores->>'")
+                   .append(index)
+                   .append("') :: numeric >= 7 OR NULL) :: numeric * 100 / (count(last_level_index_scores->>'")
+                   .append(index)
+                   .append("' NOTNULL OR NULL)), 2) AS score FROM  p");
+            sql.append(tempSql);
+        }
+
+        System.out.println(sql.toString());*/
+
+        /*
+        SELECT jsonb_build_object ('管线',
+               round(count((last_level_index_scores->>'管线') :: numeric >= 7 OR NULL) :: numeric * 100 /
+                     (count(last_level_index_scores->>'管线' NOTNULL OR NULL)), 2),
+                   '墙面、屋面及地面' ,round(count((last_level_index_scores->>'墙面、屋面及地面') :: numeric >= 7 OR NULL) :: numeric * 100 /
+                     (count(last_level_index_scores->>'墙面、屋面及地面' NOTNULL OR NULL)), 2) )
+        FROM project_data
+                   WHERE project_id = '9ec537f6-8b3e-441c-95b8-27c99dd9a9c4'
+                     AND batch = '2018年'
+         */
+        StringBuilder sql = new StringBuilder("SELECT jsonb_build_object (");
+        for (int i = 0; i < indexes.length; i++) {
+            String index = indexes[i];
+            StringBuilder tempSql = new StringBuilder();
+            if (i != 0) {
+                tempSql.append(" , ");
+            }
+            tempSql.append(" '")
+                   .append(index)
+                   .append("' ,  round(count((last_level_index_scores->>'")
+                   .append(index)
+                   .append("') :: numeric >= 7 OR NULL) :: numeric * 100 / (count(last_level_index_scores->>'")
+                   .append(index)
+                   .append("' NOTNULL OR NULL)), 2)");
+            sql.append(tempSql);
+        }
+        sql.append(") FROM project_data WHERE project_id = '9ec537f6-8b3e-441c-95b8-27c99dd9a9c4' AND batch = '2018年'");
+
+        System.out.println(sql.toString());
+    }
+
+    @Test
+    public void generateTierIndexSql() {
+        String[] indexes = new String[]{"报站准确", "照顾老幼", "专注工作", "疏导车内秩序", "进出站慢行", "跑来等", "解答咨询", "站台基础设施", "站台秩序", "文明用语", "驾驶平稳", "多样化线路", "夜班车线路数量", "避免夹摔乘客", "车内拥挤", "着职业装", "首末班时间", "服务标志", "车内外干净整洁", "乘务管理员", "到站距离", "文明行车", "基础设施", "等车时间", "开启空调", "换乘便捷", "车辆故障处理", "提示上下车及购票", "公交热线", "复杂路况安全提示", "按站停车", "遵守交通法规", "便捷获取线路调整信息"};
+        /*
+            SELECT batch, avg((last_level_index_scores->>'开启空调') :: numeric)
+            FROM project_data
+            WHERE project_id = '90b38053-bb4b-4859-a21a-d33852c2c6c7'
+            GROUP BY batch
+            UNION ALL
+            SELECT batch, avg((last_level_index_scores->>'多样化线路') :: numeric)
+            FROM project_data
+            WHERE project_id = '90b38053-bb4b-4859-a21a-d33852c2c6c7'
+            GROUP BY batch
+         */
+        StringBuilder sqlBuilder = new StringBuilder();
+        for (int i = 0; i < indexes.length; i++) {
+            String index = indexes[i];
+            StringBuilder tempSql = new StringBuilder("SELECT batch,'"+index+"' as index_name, avg((last_level_index_scores->>'"+index+"') :: numeric) as score FROM project_data WHERE project_id = '90b38053-bb4b-4859-a21a-d33852c2c6c7' GROUP BY batch");
+            if (i != 0) {
+                sqlBuilder.append(" UNION ALL ");
+            }
+            sqlBuilder.append(tempSql);
+        }
+        System.out.println(sqlBuilder.toString());
+    }
+
+    @Test
+    public void topPercentUnionAll(){
+        /*
+        WITH p AS (SELECT last_level_index_scores
+                             FROM project_data
+                             WHERE project_id = '9ec537f6-8b3e-441c-95b8-27c99dd9a9c4'
+                                 AND batch = '2018年')
+        SELECT '管线'                                                                          AS index_name,
+                     CASE
+                         WHEN count(1) FILTER (WHERE last_level_index_scores ->> '管线' NOTNULL) = 0 THEN NULL
+                         ELSE (count((last_level_index_scores->>'管线') :: numeric >= 7 OR NULL) :: numeric /
+                                     count(1) FILTER (WHERE last_level_index_scores ->> '管线' NOTNULL)) END AS score
+        FROM p
+         */
+        String indexes[] = {"管线", "墙面、屋面及地面", "销售顾问专业度", "收房过程", "售楼处物业人员", "整改返修表现", "售后服务", "收房通知信息传达", "社区生活营造氛围", "配套设施", "维修效果", "地下车库道闸系统", "销售服务", "装修管理", "房屋质量", "总体满意度", "维修效率", "收房流程现场秩序", "上下水设施", "承诺兑现及预期", "环境秩序维护", "工作人员沟通情况", "绿化养护", "投诉处理", "社区道路规划", "烟道、排风系统", "房屋结构", "公共区域设计", "楼栋外立面质量", "物业日常维修", "销售承诺", "园林景观", "户内精装修", "安防设计", "采暖设施", "报修渠道", "房屋整洁", "门窗及配件", "电梯", "智能门禁安防系统", "公共区域卫生清洁", "安全管理", "物业服务人员态度", "车辆管理", "维修人员服务态度", "工作人员专业性", "客服反应速度", "问题反馈渠道", "现场服务人员态度", "阳台或露台", "层高设计", "墙体情况", "销售顾问态度", "维修服务", "车库及出入口", "门窗", "渗漏问题", "问题处理有效性", "房屋质量问题", "物业问题反馈及时性", "房屋内部设计", "小区规划", "户型设计", "验房人员专业性", "设施维护", "销售处环境氛围", "手续规范性", "问题回复及时性", "地面和墙面", "物业服务", "宠物管理", "投诉问题反馈及时性", "建筑外立面设计", "维修人员专业性"};
+        String cteSql = " WITH p AS (SELECT last_level_index_scores FROM project_data WHERE project_id = '9ec537f6-8b3e-441c-95b8-27c99dd9a9c4' AND batch = '2018年' )";
+        StringBuilder sqlBuilder = new StringBuilder(cteSql);
+
+        for (int i=0;i<indexes.length;i++){
+            String index = indexes[i];
+            StringBuilder tempSql = new StringBuilder();
+            if (i!=0){
+                tempSql.append(" UNION ALL ");
+            }
+            tempSql.append(" SELECT '")
+                   .append(index)
+                   .append("' AS index_name, CASE WHEN count(1) FILTER (WHERE last_level_index_scores ->> '")
+                   .append(index)
+                   .append("' NOTNULL) = 0 THEN NULL ELSE (count((last_level_index_scores->>'")
+                   .append(index)
+                   .append("') :: numeric >= 7 OR NULL) :: numeric / count(1) FILTER (WHERE last_level_index_scores ->> '")
+                   .append(index)
+                   .append("' NOTNULL)) END AS score FROM p ");
+            sqlBuilder.append(tempSql);
+        }
+
+        System.out.println(sqlBuilder.toString());
     }
 }

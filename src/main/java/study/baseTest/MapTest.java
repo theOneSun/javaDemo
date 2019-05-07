@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -69,4 +70,25 @@ public class MapTest {
 
     }
 
+    //测试修改value是否改变顺序
+    @Test
+    public void testLinkedHashMapAddOrder(){
+        Map<String,Boolean> map = new LinkedHashMap<>();
+        map.put("1",true);
+        map.put("2",false);
+        map.put("3",true);
+        map.put("4",true);
+        printMap(map);
+
+        map.put("3",false);
+        printMap(map);
+
+    }
+
+    private void printMap(Map map){
+        for (Object entry:map.entrySet()){
+            Map.Entry entry1 = (Map.Entry) entry;
+            System.out.println(entry1.getKey()+"="+entry1.getValue());
+        }
+    }
 }
