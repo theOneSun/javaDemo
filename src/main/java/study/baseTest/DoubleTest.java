@@ -77,4 +77,17 @@ public class DoubleTest
         double a = 98.90;
         System.out.println(a);
     }
+
+    //测试"#.00"和"0.00"的区别
+    @Test
+    public void remain0point0()
+    {
+        Double b = 0d;
+
+        DecimalFormat df = new DecimalFormat("#.00");
+        DecimalFormat df2 = new DecimalFormat("0.00");
+
+        System.out.println(df.format(b));
+        System.out.println(df2.format(b));
+    }
 }
