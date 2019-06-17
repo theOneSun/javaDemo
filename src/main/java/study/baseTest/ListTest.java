@@ -108,4 +108,13 @@ public class ListTest
 //        list2.add(1,"路虎");
 //        list2.forEach(System.out::println);
     }
+
+    //测试指定位置插入
+    @Test
+    public void testAddIndex(){
+        List<String> list = new ArrayList<>();
+        list.add("1");
+        list.add(0,"0");
+        System.out.println(list.size());
+    }
 }

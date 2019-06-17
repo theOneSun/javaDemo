@@ -1,7 +1,9 @@
 package study.baseTest;
 
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
+import study.utils.StringUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -149,5 +151,13 @@ public class ArrayTest {
             System.out.println(s);
         }
 
+    }
+
+    @Test
+    public void testClone() {
+        String[] index = {"硬件", "外部环境", "外部卫生"};
+        String[] clone = ArrayUtils.clone(index);
+        System.out.println(Arrays.toString(clone));
+        System.out.println(Arrays.toString(index));
     }
 }

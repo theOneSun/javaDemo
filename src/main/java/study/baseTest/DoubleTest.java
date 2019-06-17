@@ -3,6 +3,7 @@ package study.baseTest;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 /**
@@ -89,5 +90,42 @@ public class DoubleTest
 
         System.out.println(df.format(b));
         System.out.println(df2.format(b));
+    }
+
+    //测试保留整数转int
+    @Test
+    public void convertInt()
+    {
+        Double b = 0d;
+
+        DecimalFormat df = new DecimalFormat("#");
+
+        final BigDecimal bigDecimal = new BigDecimal(b);
+        final BigDecimal result = bigDecimal.setScale(0, RoundingMode.HALF_UP);
+        System.out.println(result);
+        final Double bd = Double.valueOf(String.valueOf(result));
+        System.out.println("bigdecimal->double"+bd);
+        System.out.println(Integer.valueOf(String.valueOf(result)));
+
+        System.out.println(df.format(b));
+        System.out.println(Integer.valueOf(df.format(b)));
+    }
+
+    //测试double转string
+    @Test
+    public void testToString(){
+        /*double d = 19d;
+        System.out.println(String.valueOf(d));
+        System.out.println(String.valueOf((long) d));*/
+
+        double d2 = -19.9;
+        final long round = Math.round(d2);
+        if (round-d2==0){
+            System.out.println((long) d2);
+        }else
+        {
+            System.out.println(d2);
+        }
+
     }
 }
