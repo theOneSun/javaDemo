@@ -1,7 +1,5 @@
 package study.concurrent.seckill;
 
-import com.sun.javafx.image.BytePixelSetter;
-
 /**
  * @author sunjian.
  */

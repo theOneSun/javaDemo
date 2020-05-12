@@ -13,22 +13,22 @@ import java.util.UUID;
 public class BatchUUIDUtils
 {
     @Test
-    public void productUUIDBatch() throws IOException
-    {
-//        int max = 290000;
-//        int max = 603272-580000;
-        int max = 10;
-//        System.out.println("-------------------");
-//        FileWriter fw = new FileWriter(new File("uuidResult.txt" ));
-        String id;
-        for (int i = 0; i< max; i++){
-//            id = UUID.randomUUID().toString().replaceAll("-", "");
-//            fw.write(id+"\r\n");
-//            fw.flush();
-//            System.out.println(id);
-        System.out.println(UUID.randomUUID());
+    public void printUUIDBatch() {
+        int max = 339541;
+        for (int i = 0; i < max; i++) {
+            System.out.println(UUID.randomUUID());
         }
-//        fw.close();
+    }
+
+    @Test
+    public void writeUUID() throws IOException {
+        int max = 338374;
+        FileWriter fw = new FileWriter(new File("uuidResult.txt" ));
+        for (int i = 0; i< max; i++){
+            fw.write(UUID.randomUUID().toString()+"\r\n");
+            fw.flush();
+        }
+        fw.close();
     }
 
 }

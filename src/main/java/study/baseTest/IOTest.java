@@ -62,7 +62,7 @@ public class IOTest
         Date date = new Date(l);
         String format = dft.format(date);
         File file = new File(property + "/导入数据结果" + format);
-        boolean mkdir = file.mkdir();
+        boolean mkdir = file.mkdirs();
         System.out.println(mkdir);
     }
 }

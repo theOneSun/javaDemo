@@ -160,4 +160,13 @@ public class ArrayTest {
         System.out.println(Arrays.toString(clone));
         System.out.println(Arrays.toString(index));
     }
+
+    @Test
+    public void testAdd() {
+        final String[] a = new String[2];
+        for (int i = 0; i < 2; i++) {
+            a[i] = String.valueOf(i);
+        }
+        System.out.println(Arrays.toString(a));
+    }
 }

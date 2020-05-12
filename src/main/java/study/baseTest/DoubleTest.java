@@ -118,14 +118,24 @@ public class DoubleTest
         System.out.println(String.valueOf(d));
         System.out.println(String.valueOf((long) d));*/
 
-        double d2 = -19.9;
+        double d2 = -19.0;
         final long round = Math.round(d2);
         if (round-d2==0){
-            System.out.println((long) d2);
+            System.out.println((int) d2);
         }else
         {
             System.out.println(d2);
         }
 
+    }
+
+    @Test
+    public void testMultiplication(){
+        Integer a = null;
+        Integer b = 1;
+        Integer c = 2;
+//        System.out.println(a*0.25);
+        System.out.println(b*0.25);
+        System.out.println(c*0.25);
     }
 }

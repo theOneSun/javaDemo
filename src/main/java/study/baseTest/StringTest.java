@@ -1,11 +1,15 @@
 package study.baseTest;
 
 import com.sun.org.apache.xpath.internal.SourceTree;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import study.idata3dsimulate.normal.ElectronicSpecialInvoice;
 import study.utils.MathUtils;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -193,4 +197,107 @@ public class StringTest
         String a = "SELECT * FROM project_data WHERE";
         System.out.println(a.contains("where"));
     }
+
+    @Test
+    public void testJoin(){
+        String delimiter = ",";
+        String a = "";
+        String b = null;
+        String c = "cdb123";
+        String d = "cdb000";
+
+        System.out.println("a,d : " + String.join(delimiter,a,d));
+        System.out.println("b,d : " + String.join(delimiter,b,d));
+        System.out.println("c,d : " + String.join(delimiter,c,d));
+
+        System.out.println(StringUtils.isEmpty(a));
+        System.out.println(StringUtils.isEmpty(b));
+
+    }
+
+    @Test
+    public void testLoopJoin(){
+        String delimiter = ",";
+        List<String> list = new ArrayList<>();
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        final String join = String.join(delimiter, list);
+        System.out.println(join);
+        final String[] objects = list.toArray(new String[0]);
+        System.out.println(Arrays.toString(objects));
+
+        /*for (int i = 0; i < 3; i++) {
+            String.join()
+        }*/
+        String result = "";
+        for (String s : list) {
+            result = String.join(",", result, s);
+        }
+        System.out.println("result : "+result);
+    }
+
+    @Test
+    public void testValueOfDouble(){
+        Double d = 0.0000089798712312;
+        System.out.println(String.valueOf(d));
+        BigDecimal bg = new BigDecimal("0.00000");
+        System.out.println(bg.toString());
+        DecimalFormat df = new DecimalFormat("#.######");
+
+        System.out.println("df: "+df.format(d));
+
+        System.out.println("--------");
+
+        NumberFormat nf = NumberFormat.getInstance();
+        nf.setGroupingUsed(false);
+        System.out.println(nf.format(d));
+    }
+
+    @Test
+    public void testValueOfDoubleRound(){
+        Double d = 0.0000089798712312;
+        DecimalFormat df = new DecimalFormat("#.######");
+        System.out.println("df: "+df.format(d));
+    }
+
+    @Test
+    public void testReplace(){
+        String idCard = "21111019901221001X";
+        StringBuilder sb = new StringBuilder(idCard);
+        sb.replace(14,18,"****");
+        System.out.println(sb.toString());
+    }
+
+    @Test
+    public void testSensitive(){
+        String name = "薰悟空";
+        String idNumber = "330108199901011234";
+        String mobile = "13155556666";
+        String tel = "88889999";
+        System.out.println("name = " + desensitization(name));
+        System.out.println("idNumber = " + desensitization(6,idNumber,idNumber.length()-6));
+        System.out.println("mobile = " + desensitization(1,mobile,10));
+        System.out.println("tel = " + desensitization(1,tel,tel.length()-1));
+    }
+
+    //脱敏处理,只保留第一位
+    private String desensitization(String original){
+
+        return desensitization(1,original);
+    }
+    private String desensitization(int start,String original){
+        return desensitization(1,original,1);
+    }
+    private String desensitization(int start,String original,int number){
+        StringBuilder star = new StringBuilder();
+        for (int i = 0; i < number; i++) {
+            star.append("*");
+        }
+        final String stars = star.toString();
+        StringBuilder sb = new StringBuilder(original);
+        sb.replace(start,sb.length(),stars);
+        return sb.toString();
+    }
+
 }
