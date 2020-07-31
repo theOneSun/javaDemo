@@ -107,6 +107,18 @@ public class StreamTest {
         System.out.println(strings.length);
     }
 
+    @Test
+    public void toMapTest(){
+        List<Demo> list = new ArrayList<>();
+        list.add(new Demo(1,100));
+        list.add(new Demo(2,67));
+        list.add(new Demo(3,67));
+        list.add(new Demo(1,56));
+        final Map<Integer, Demo> collect = list.stream()
+                                               .collect(Collectors.toMap(Demo::getAge, demo -> demo,(u,v)->u));
+        collect.entrySet().forEach(System.out::println);
+    }
+
 
     @AllArgsConstructor
     @Getter

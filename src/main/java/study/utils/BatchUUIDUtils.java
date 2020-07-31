@@ -14,7 +14,7 @@ public class BatchUUIDUtils
 {
     @Test
     public void printUUIDBatch() {
-        int max = 339541;
+        int max = 10;
         for (int i = 0; i < max; i++) {
             System.out.println(UUID.randomUUID());
         }
@@ -22,7 +22,7 @@ public class BatchUUIDUtils
 
     @Test
     public void writeUUID() throws IOException {
-        int max = 338374;
+        int max = 43830;
         FileWriter fw = new FileWriter(new File("uuidResult.txt" ));
         for (int i = 0; i< max; i++){
             fw.write(UUID.randomUUID().toString()+"\r\n");

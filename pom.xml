@@ -15,6 +15,7 @@
         <commons-lang3.version>3.8.1</commons-lang3.version>
         <commons-collections4.version>4.3</commons-collections4.version>
         <jackson-databind.version>2.9.6</jackson-databind.version>
+        <cglib.version>3.3.0</cglib.version>
     </properties>
 
     <dependencies>
@@ -45,6 +46,10 @@
             <artifactId>jackson-databind</artifactId>
             <version>${jackson-databind.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>${cglib.version}</version>
+        </dependency>
     </dependencies>
 </project>

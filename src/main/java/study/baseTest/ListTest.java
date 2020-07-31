@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -132,20 +134,20 @@ public class ListTest {
     }
 
     @Test
-    public void testSize(){
+    public void testSize() {
         String[] playerArray = {"Messi", "C.罗", "苏亚雷斯", "内马尔", "哈维", "伊涅斯塔", "库蒂尼奥", "布斯克茨", "罗纳尔迪尼奥"};
         List<String> players = new ArrayList<>(playerArray.length);
-        Collections.addAll(players,playerArray);
+        Collections.addAll(players, playerArray);
 
         List<String> list = new ArrayList<>();
-//        Collections.copy(players,list);
+        //        Collections.copy(players,list);
         //--------------------------------------------------
-        String[] roleArray = {"平民", "平民", "平民", "狼人", "狼人", "狼人", "女巫", "猎人", "预言家","守卫"};
+        String[] roleArray = {"平民", "平民", "平民", "狼人", "狼人", "狼人", "女巫", "猎人", "预言家", "守卫"};
         List<String> roles = new ArrayList<>(roleArray.length);
-        Collections.addAll(roles,roleArray);
-        CollectionUtils.addAll(roles,players);
+        Collections.addAll(roles, roleArray);
+        CollectionUtils.addAll(roles, players);
 
-        Collections.copy(roles,players);
+        Collections.copy(roles, players);
         System.out.println(roles.toString());
 
         System.out.println(roles.size());
@@ -165,40 +167,69 @@ public class ListTest {
         List<String> players = new ArrayList<>(playerArray.length);
         List<String> roles = new ArrayList<>(roleArray.length);
 
-        Collections.addAll(players,playerArray);
-        Collections.addAll(roles,roleArray);
+        Collections.addAll(players, playerArray);
+        Collections.addAll(roles, roleArray);
 
         Collections.shuffle(players);
         Collections.shuffle(roles);
 
-        Map<String,String> playerRoleMap = new HashMap<>();
-        for (int i = 0; i <playerNumber ; i++) {
+        Map<String, String> playerRoleMap = new HashMap<>();
+        for (int i = 0; i < playerNumber; i++) {
             final String player = players.get(i);
-//            final int roleIndex = random.nextInt(roles.size());
+            //            final int roleIndex = random.nextInt(roles.size());
             /*final String role = roles.get(roleIndex);
             roles.remove(role);*/
             final String role = roles.get(i);
-            playerRoleMap.put(player,role);
-            System.out.println("这是第"+i+"次");
+            playerRoleMap.put(player, role);
+            System.out.println("这是第" + i + "次");
         }
-        playerRoleMap.entrySet().forEach(System.out::println);
+        playerRoleMap.entrySet()
+                     .forEach(System.out::println);
     }
 
     //测试removeIf
     @Test
-    public void testRemoveIf(){
+    public void testRemoveIf() {
         List<User> list = new ArrayList<>();
-        list.add(new User(UUID.randomUUID(),"hehe"));
-        list.add(new User(UUID.randomUUID(),"haha"));
-        list.add(new User(UUID.randomUUID(),"heihei"));
-        list.add(new User(UUID.randomUUID(),"xixi"));
-        list.add(new User(UUID.randomUUID(),"huhu"));
-        list.add(new User(UUID.randomUUID(),"houhou"));
+        list.add(new User(UUID.randomUUID(), "hehe"));
+        list.add(new User(UUID.randomUUID(), "haha"));
+        list.add(new User(UUID.randomUUID(), "heihei"));
+        list.add(new User(UUID.randomUUID(), "xixi"));
+        list.add(new User(UUID.randomUUID(), "huhu"));
+        list.add(new User(UUID.randomUUID(), "houhou"));
 
-        System.out.println("初始化完成:"+list.size());
+        System.out.println("初始化完成:" + list.size());
 
-        list.removeIf(user -> user.getUsername().equals("heh1e"));
+        list.removeIf(user -> user.getUsername()
+                                  .equals("heh1e"));
 
-        System.out.println("删除完成:"+list.size());
+        System.out.println("删除完成:" + list.size());
+    }
+
+    //测试循环中添加元素
+    @Test
+    public void testLoopAdd() {
+        Random random = new Random();
+        List<String> list = new LinkedList<>();
+        list.add("4");
+        for (int i = 0; i < 5; i++) {
+            list.add(String.valueOf(random.nextInt()));
+        }
+
+//        printList(list);
+
+        final Iterator<String> iterator = list.iterator();
+        while (iterator.hasNext()){
+            final String s = iterator.next();
+            System.out.println(s);
+            if ("4".equals(s)){
+                list.add("4+1");
+            }
+        }
+
+    }
+
+    private void printList(List<String> list) {
+        list.forEach(System.out::println);
     }
 }

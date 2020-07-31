@@ -9,7 +9,6 @@ public class TicketSell implements Runnable {
 
     private final Object lock = new Object();
 
-
     public TicketSell(int total) {
         this.total = total;
     }

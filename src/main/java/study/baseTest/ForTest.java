@@ -103,4 +103,13 @@ public class ForTest
         }
         System.out.println("end");
     }
+
+    @Test
+    public void testRange(){
+        List<String> list = new ArrayList<>();
+        list.add("asd");
+        for (int i = 1; i < list.size(); i++) {
+            System.out.println(list.get(i));
+        }
+    }
 }

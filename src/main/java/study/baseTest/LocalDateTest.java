@@ -1,16 +1,15 @@
 package study.baseTest;
 
-import com.sun.deploy.security.MSCryptoDSASignature;
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.Month;
 import java.time.Period;
 import java.time.YearMonth;
 import java.time.ZoneId;
@@ -18,8 +17,6 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -286,7 +283,7 @@ public class LocalDateTest {
         System.out.println(until);
 
         final LocalDateTime timeNow = LocalDateTime.now();
-        final LocalDateTime timeOf = LocalDateTime.of(2020,4,12,0,20,33);
+        final LocalDateTime timeOf = LocalDateTime.of(2020, 4, 12, 0, 20, 33);
         final long timeUntil = timeOf.until(timeNow, ChronoUnit.SECONDS);
         System.out.println(timeUntil);
     }
@@ -294,8 +291,10 @@ public class LocalDateTest {
     @Test
     public void testYearMonth() {
         System.out.println(YearMonth.now());
-        System.out.println(YearMonth.now().minusMonths(1));
-        System.out.println(YearMonth.now().minusMonths(7));
+        System.out.println(YearMonth.now()
+                                    .minusMonths(1));
+        System.out.println(YearMonth.now()
+                                    .minusMonths(7));
 
     }
 
@@ -308,9 +307,9 @@ public class LocalDateTest {
         final long until = beginYearMonth.until(now, ChronoUnit.MONTHS);
         System.out.println("两个年月的差距: " + until);
 
-        for (int i=0;i<=until;i++){
+        for (int i = 0; i <= until; i++) {
             final YearMonth yearMonth = beginYearMonth.plusMonths(i);
-            System.out.println("当前年月:"+yearMonth);
+            System.out.println("当前年月:" + yearMonth);
         }
     }
 
@@ -319,14 +318,96 @@ public class LocalDateTest {
     public void testMap() {
         final YearMonth beginYearMonth = YearMonth.of(2019, 5);
         final YearMonth now = YearMonth.now();
-        Map<YearMonth,Integer> map = new HashMap<>();
-        map.put(beginYearMonth,10);
-        map.put(now,12);
+        Map<YearMonth, Integer> map = new HashMap<>();
+        map.put(beginYearMonth, 10);
+        map.put(now, 12);
 
         System.out.println(map.get(YearMonth.of(2020, 3)));
-        Map<String,Integer> sMap = new HashMap<>();
-        sMap.put("2019-01",10);
-        sMap.put("2020-03",12);
+        Map<String, Integer> sMap = new HashMap<>();
+        sMap.put("2019-01", 10);
+        sMap.put("2020-03", 12);
         System.out.println(sMap.get(now.toString()));
+    }
+
+    @Test
+    public void testCompare() {
+        final LocalDateTime now = LocalDateTime.now();
+        final LocalDateTime tomorrow = now.plusDays(1);
+        System.out.println(now.isAfter(tomorrow));
+        System.out.println(now.isAfter(null));
+
+    }
+
+    //测试时间段
+    @Test
+    public void testPeriod() {
+        final LocalDate localDateNow = LocalDate.now();
+
+        //当天
+        System.out.println("当天开始时间: " + localDateNow.atStartOfDay());
+        System.out.println("当天结束时间: " + localDateNow.atTime(LocalTime.MAX));
+
+        //本周
+        System.out.println("本周一开始时间: " + localDateNow.with(DayOfWeek.MONDAY)
+                                                     .atTime(LocalTime.MIN));
+        System.out.println("本周日结束时间: " + localDateNow.with(DayOfWeek.SUNDAY)
+                                                     .atTime(LocalTime.MAX));
+        //本月
+        System.out.println("本月1号开始时间: " + localDateNow.withDayOfMonth(1)
+                                                      .atTime(LocalTime.MIN));
+        System.out.println("本月最后一天结束时间: " + localDateNow.withDayOfMonth(localDateNow.lengthOfMonth())
+                                                        .atTime(LocalTime.MAX));
+
+        //本季度
+        final int monthValue = localDateNow.getMonthValue();
+        LocalDateTime seasonBeginTime;
+        LocalDateTime seasonEndTime;
+        if (monthValue < 4) {
+
+            seasonBeginTime = LocalDate.of(localDateNow.getYear(), 1, 1)
+                                       .atStartOfDay();
+            seasonEndTime = LocalDate.of(localDateNow.getYear(), 3, 31)
+                                     .atTime(LocalTime.MAX);
+
+        } else if (monthValue < 7) {
+            seasonBeginTime = LocalDate.of(localDateNow.getYear(), 4, 1)
+                                       .atStartOfDay();
+            seasonEndTime = LocalDate.of(localDateNow.getYear(), 6, 30)
+                                     .atTime(LocalTime.MAX);
+        } else if (monthValue < 10) {
+            seasonBeginTime = LocalDate.of(localDateNow.getYear(), 7, 1)
+                                       .atStartOfDay();
+            seasonEndTime = LocalDate.of(localDateNow.getYear(), 9, 30)
+                                     .atTime(LocalTime.MAX);
+        } else {
+            seasonBeginTime = LocalDate.of(localDateNow.getYear(), 10, 1)
+                                       .atStartOfDay();
+            seasonEndTime = LocalDate.of(localDateNow.getYear(), 12, 31)
+                                     .atTime(LocalTime.MAX);
+        }
+        System.out.println("当前季度开始时间: " + seasonBeginTime);
+        System.out.println("当前季度结束时间: " + seasonEndTime);
+
+        //本年
+        System.out.println("当年开始时间: " + localDateNow.withDayOfYear(1)
+                                                    .atStartOfDay());
+        System.out.println("当年结束时间: " + LocalDate.of(localDateNow.getYear(),12,31)
+                                                    .atTime(LocalTime.MAX));
+    }
+
+    @Test
+    public void testPeriodList() {
+        final LocalDateTime now = LocalDateTime.now();
+        System.out.println("now: " + now);
+        final LocalDateTime beginTime = now.minusDays(6);
+        System.out.println("begin: " + beginTime);
+        List<LocalDate> list = new ArrayList<>();
+        final int until = (int) beginTime.until(now, ChronoUnit.DAYS);
+        for (int i = 0; i < until + 1; i++) {
+            list.add(beginTime.plus(i, ChronoUnit.DAYS)
+                              .toLocalDate());
+        }
+        list.forEach(System.out::println);
+
     }
 }
