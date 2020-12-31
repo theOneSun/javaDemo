@@ -3,6 +3,7 @@ package study.baseTest;
 import org.junit.Test;
 import study.baseTest.domain.Student;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -39,5 +40,12 @@ public class SetTest {
         final boolean remove = set.remove(c);
         System.out.println("删除结果: "+ remove);
         set.forEach(System.out::println);
+    }
+
+    @Test
+    public void testRemove(){
+        Set<Integer> set = new HashSet<>(Arrays.asList(1,2,3));
+        System.out.println(set.remove(1));
+        System.out.println(set.remove(4));
     }
 }

@@ -2,6 +2,7 @@ package study.date;
 
 import org.junit.Test;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -19,4 +20,9 @@ public class DateTest
         System.out.println(sdf.format(date));
     }
 
+    @Test
+    public void testDateTime(){
+        System.out.println(new Timestamp(System.currentTimeMillis()).toString());
+
+    }
 }

@@ -10,8 +10,10 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -29,6 +31,26 @@ public class StringTest
         System.out.println(substring1);
         System.out.println(value);
         System.out.println("---"+value.substring(1,value.length()));
+
+        System.out.println(LocalDate.now()
+                                    .toString().substring(0,7));
+    }
+
+    @Test
+    public void testPoliceSubString() {
+        String police = "长兴测试派出所";
+        String area2 = "长兴县";
+
+        if (police.startsWith(area2)) {
+            police = police.substring(area2.length());
+            System.out.println(police);
+        }
+
+        if (police.endsWith("派出所")) {
+            police = police.substring(1, police.length() - "派出所".length());
+            System.out.println(police);
+        }
+        System.out.println(police);
     }
 
     @Test
@@ -212,6 +234,11 @@ public class StringTest
 
         System.out.println(StringUtils.isEmpty(a));
         System.out.println(StringUtils.isEmpty(b));
+        System.out.println("--------测试null拼接---------");
+        System.out.println(StringUtils.join(new String[]{b,d}, ","));
+        System.out.println(StringUtils.joinWith(",", (Object[]) new String[]{b, d}));
+
+
 
     }
 
@@ -300,4 +327,32 @@ public class StringTest
         return sb.toString();
     }
 
+
+    @Test
+    public void testFilter(){
+        List<String> list = new ArrayList<>();
+        list.add("湖州公安情报第133期(会议纪要).docx");
+        list.add("湖州公安情报第135期(会议纪要).docx");
+        list.add("湖州公安情报第145期(会议纪要).docx");
+        list.add("湖州公安情报第146期(会议纪要).docx");
+        list.add("湖州公安情报第146期(会议纪asd要).docx");
+        list.add("asd(会议纪要).docx");
+        list.add("a123kasd).docx");
+
+        int max= 0;
+        String target = "";
+
+        for (String name : list) {
+            if (name.startsWith("湖州公安情报第") && name.endsWith("期(会议纪要).docx")){
+                final String substring = name.substring(7);
+                final String versionStr = substring.substring(0,substring.indexOf("期(会议纪要).docx"));
+                final Integer version = Integer.valueOf(versionStr);
+                if (version > max){
+                    max = version;
+                    target = name;
+                }
+            }
+        }
+        System.out.println(target);
+    }
 }

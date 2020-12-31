@@ -5,6 +5,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
 import study.utils.StringUtils;
 
+import javax.sql.rowset.FilteredRowSet;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -177,5 +178,22 @@ public class ArrayTest {
         }
         System.out.println(Arrays.toString(a));
     }
+    @Test
+    public void testCopy() {
+        String[] origin = new String[]{"aa","bb","cc"};
+        String[] dest = new String[origin.length+1];
+        String first = "1";
+        System.arraycopy(origin,0,dest,1,origin.length);
+        dest[0] = first;
+        System.out.println(Arrays.toString(dest));
+    }
 
+    @Test
+    public void testCopyOfRange() {
+        String[] origin = new String[]{"aa","bb","cc"};
+        String[] dest = new String[origin.length+1];
+        System.arraycopy(origin,0,dest,0,origin.length);
+        dest[origin.length] = "lalala";
+        System.out.println(Arrays.toString(dest));
+    }
 }

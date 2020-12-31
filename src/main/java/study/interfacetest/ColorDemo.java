@@ -1,5 +1,7 @@
 package study.interfacetest;
 
+import static study.interfacetest.ColorEnum.GREEN;
+
 /**
  * @author sunjian.
  */
@@ -9,5 +11,7 @@ public class ColorDemo {
         final Red red = new Red();
 
         System.out.println(red.getColor());
+
+        System.out.println(GREEN.getColor());
     }
 }

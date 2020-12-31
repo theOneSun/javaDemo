@@ -228,6 +228,16 @@ public class ListTest {
         }
 
     }
+    @Test
+    public void testFixed(){
+        final ArrayList<String> list = new ArrayList<>(3);
+        list.add("123");
+        list.add("123");
+        list.add("123");
+        list.add("123");
+        list.add("123");
+        printList(list);
+    }
 
     private void printList(List<String> list) {
         list.forEach(System.out::println);
