@@ -4,17 +4,18 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import java.beans.PropertyChangeEvent;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
  * 单元格
+ *
  * @author sunjian.
  */
 @RequiredArgsConstructor
-public class Cell implements Candidate{
+public class Cell implements Candidate {
     private final Set<Integer> candidates = new LinkedHashSet<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
     //行标,start with 1
     @Setter
@@ -72,14 +73,18 @@ public class Cell implements Candidate{
     }
 
     public void setValue(Integer value) {
-        // TODO: 2020/12/21
-        final PropertyChangeEvent event = new PropertyChangeEvent(this, "value", this.value, value);
         this.value = value;
         this.changeable = false;
         //1.清空候选值
         //2.同行同列同宫的候选值删掉与
         this.candidates.clear();
-
+        // 同行同列同宫的候选值删掉与
+        final Sudoku sudoku = (Sudoku) SudokuContext.get("sudoku");
+        if (Objects.nonNull(sudoku)){
+            sudoku.getRow(x).getCells().forEach(cell -> cell.removeCandidate(value));
+            sudoku.getColumn(y).getCells().forEach(cell -> cell.removeCandidate(value));
+            sudoku.getGrid(z).getCells().forEach(cell -> cell.removeCandidate(value));
+        }
     }
 
     //排除候选项
@@ -89,8 +94,7 @@ public class Cell implements Candidate{
             throw new RuntimeException("解错了");
         }
         if (candidates.size() == 1) {
-            setValue(candidates.iterator()
-                             .next());
+            setValue(candidates.iterator().next());
         }
     }
 

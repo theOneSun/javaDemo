@@ -10,7 +10,7 @@ import java.util.Set;
  * 单候选数设置值
  * @author sunjian.
  */
-public class UniqueCandidate implements CandidateRemove{
+public class SingleCandidate implements CandidateRemove{
     @Override
     public boolean removeCandidate(Sudoku sudoku) {
         boolean result = false;

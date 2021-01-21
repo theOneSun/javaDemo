@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public abstract class Module implements Index, Candidate {
 
-    abstract ArrayList<Cell> getCells();
+    public abstract ArrayList<Cell> getCells();
 
      void addCell(Cell cell){
         if (getCells().size() < 10) {
@@ -21,10 +21,10 @@ public abstract class Module implements Index, Candidate {
         }
     }
 
-    @Override
+    /*@Override
     public final Set<Integer> getCandidates() {
         throw new UnsupportedOperationException();
-    }
+    }*/
 
     @Override
     public void clear() {

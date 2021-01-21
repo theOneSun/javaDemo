@@ -13,7 +13,13 @@ public class FilterRegister {
     public static List<CandidateRemove> register() {
         List<CandidateRemove> result =  new ArrayList<>();
         result.add(new ModuleDistinct());
-        result.add(new UniqueCandidate());
+        result.add(new SingleCandidate());
+
+        result.add(new UniqueInGrid());
+        result.add(new UniqueInRow());
+        result.add(new UniqueInColumn());
+
+
         return result;
     }
 }

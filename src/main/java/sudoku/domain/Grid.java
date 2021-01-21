@@ -3,6 +3,7 @@ package sudoku.domain;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * 宫
@@ -15,8 +16,13 @@ public class Grid extends Module {
     private final ArrayList<Cell> cells = new ArrayList<>();
 
     @Override
-    ArrayList<Cell> getCells() {
+    public ArrayList<Cell> getCells() {
         return this.cells;
+    }
+
+    @Override
+    public Set<Integer> getCandidates() {
+        return null;
     }
 
     @Override

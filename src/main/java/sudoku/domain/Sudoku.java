@@ -23,28 +23,12 @@ public class Sudoku {
     @Getter
     private List<List<Cell>> cells;
 
+    @Getter
     private final ArrayList<Row> rows = new ArrayList<>(9);
+    @Getter
     private final ArrayList<Column> columns = new ArrayList<>(9);
+    @Getter
     private final ArrayList<Grid> grids = new ArrayList<>(9);
-
-    /*public static Sudoku init() {
-        final Sudoku sudoku = new Sudoku();
-        List<List<Cell>> list = new ArrayList<>();
-
-        for (int i = 1; i < 10; i++) {
-            //i 是行数
-            List<Cell> temp = new ArrayList<>();
-            for (int j = 1; j < 10; j++) {
-                //j是列数
-                final Cell cell = new Cell(i, j);
-
-                temp.add(cell);
-            }
-            list.add(temp);
-        }
-        sudoku.setCells(list);
-        return sudoku;
-    }*/
 
     public Column getColumn(int index) {
         return this.columns.get(index - 1);

@@ -110,4 +110,11 @@ public class RandomTest
         }
     }
 
+    @Test
+    public void testRandomUtils() {
+        System.out.println(RandomStringUtils.random(5));
+        System.out.println(RandomStringUtils.random(5,false,true));
+        System.out.println(RandomStringUtils.random(5,"abcdefghijklmn"));
+        System.out.println(RandomStringUtils.randomAlphabetic(5));
+    }
 }

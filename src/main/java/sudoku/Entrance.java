@@ -4,6 +4,7 @@ import com.alibaba.excel.EasyExcel;
 import org.springframework.util.ObjectUtils;
 import sudoku.domain.Cell;
 import sudoku.domain.Sudoku;
+import sudoku.domain.SudokuContext;
 import sudoku.filter.CandidateRemove;
 import sudoku.filter.FilterRegister;
 
@@ -23,18 +24,20 @@ public class Entrance {
 
         //初始化棋盘
         final Sudoku sudoku = SudokuFactory.create();
-//        sudoku.print();
+        //        sudoku.print();
 
-//        entrance.initFixedCell(sudoku);
-        entrance.readExcel(sudoku);
+        //        entrance.initFixedCell(sudoku);
+        entrance.readExcel(sudoku, "sudoku-exp");
         sudoku.print();
 
-//        System.out.println(entrance.checkChangeable(sudoku));
+        //        System.out.println(entrance.checkChangeable(sudoku));
 
+        //        SudokuContext.setSudoku(sudoku);
+        SudokuContext.put("sudoku", sudoku);
 
         final List<CandidateRemove> chain = FilterRegister.register();
         boolean loopFilter = true;
-        while (loopFilter){
+        while (loopFilter) {
             loopFilter = false;
             for (CandidateRemove filter : chain) {
                 final boolean filterResult = filter.removeCandidate(sudoku);
@@ -42,6 +45,10 @@ public class Entrance {
                     loopFilter = true;
                 }
             }
+            System.out.println("一次完整的清除:------------------");
+            sudoku.print();
+            System.out.println("--------------------------------");
+
         }
 
 
@@ -52,16 +59,16 @@ public class Entrance {
 
     }
 
-    public boolean checkChangeable(Sudoku sudoku){
+    public boolean checkChangeable(Sudoku sudoku) {
         boolean result;
         final List<Cell> cells = sudoku.getAllCell();
         for (Cell cell : cells) {
-            if (cell.isChangeable()){
+            if (cell.isChangeable()) {
                 result = !ObjectUtils.isEmpty(cell.getCandidates());
-            }else {
+            } else {
                 result = ObjectUtils.isEmpty(cell.getCandidates());
             }
-            if (!result){
+            if (!result) {
                 return false;
             }
         }
@@ -97,10 +104,8 @@ public class Entrance {
         }
     }
 
-    private void readExcel(Sudoku sudoku){
-        String fileName = System.getProperty("user.dir")+"/sudoku.xlsx";
-        EasyExcel.read(fileName, new SudokuDataListener(sudoku))
-                 .sheet()
-                 .doRead();
+    private void readExcel(Sudoku sudoku, String name) {
+        String fileName = System.getProperty("user.dir") + "/" + name + ".xlsx";
+        EasyExcel.read(fileName, new SudokuDataListener(sudoku)).sheet().doRead();
     }
 }

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -119,6 +120,32 @@ public class StreamTest {
         collect.entrySet().forEach(System.out::println);
     }
 
+    @Test
+    public void testSubOverSize() {
+        List<Demo> list = new LinkedList<>();
+        list.add(new Demo(1,1));
+        list.add(new Demo(1,100));
+        list.add(new Demo(2,67));
+        list.add(new Demo(3,67));
+        list.add(new Demo(1,56));
+
+//        list.subList(0,9).forEach(System.out::println);
+        System.out.println("3,size-1:");
+        list.subList(3, list.size() - 1).forEach(System.out::println);
+        System.out.println("-----------------");
+        System.out.println("2,size-1:");
+        list.subList(2, list.size() - 1).forEach(System.out::println);
+        System.out.println("-----------------");
+        System.out.println("3,size:");
+        list.subList(3, list.size()).forEach(System.out::println);
+        System.out.println("-----------------");
+        System.out.println("0,3:");
+        list.subList(0, 3).forEach(System.out::println);
+        System.out.println("-----------------");
+        System.out.println("1,3:");
+        list.subList(1, 3).forEach(System.out::println);
+        System.out.println("-----------------");
+    }
 
     @AllArgsConstructor
     @Getter

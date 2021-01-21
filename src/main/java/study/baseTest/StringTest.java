@@ -355,4 +355,17 @@ public class StringTest
         }
         System.out.println(target);
     }
+
+    @Test
+    public void subArea2() {
+        String area2 = "公安局太平派出所";
+        String result = area2;
+        if (result.startsWith("公安局")){
+            result = result.substring(3);
+        }
+        if (result.endsWith("派出所")){
+            result = result.substring(0, result.length() - 3);
+        }
+        System.out.println(result);
+    }
 }
