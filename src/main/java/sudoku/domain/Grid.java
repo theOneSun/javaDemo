@@ -25,7 +25,7 @@ public class Grid extends Module {
         return null;
     }
 
-    @Override
+/*    @Override
     public boolean removeCandidate(int value) {
         boolean result = false;
         for (Cell cell : cells) {
@@ -34,7 +34,12 @@ public class Grid extends Module {
             }
         }
         return result;
-    }
+    }*/
+
+    /*@Override
+    public boolean removeCandidates(Set<Integer> deleteCandidates) {
+        return false;
+    }*/
 
     @Override
     public int getIndex() {

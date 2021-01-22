@@ -48,4 +48,22 @@ public class SetTest {
         System.out.println(set.remove(1));
         System.out.println(set.remove(4));
     }
+
+    @Test
+    public void testEq() {
+        Set<Integer> a = new HashSet<>();
+        a.add(1);
+        a.add(2);
+        a.add(3);
+
+        Set<Integer> b = new HashSet<>();
+        b.add(1);
+        b.add(2);
+        b.add(4);
+
+        System.out.println(a.equals(b));
+
+        a.removeAll(b);
+        a.forEach(System.out::println);
+    }
 }

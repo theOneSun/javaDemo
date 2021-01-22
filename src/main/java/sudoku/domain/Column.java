@@ -24,7 +24,7 @@ public class Column extends Module {
         return null;
     }
 
-    @Override
+   /* @Override
     public boolean removeCandidate(int value) {
         boolean result = false;
         for (Cell cell : cells) {
@@ -33,7 +33,7 @@ public class Column extends Module {
             }
         }
         return result;
-    }
+    }*/
 
     @Override
     public int getIndex() {

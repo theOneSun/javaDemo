@@ -109,9 +109,12 @@ public class Cell implements Candidate {
     }
 
     @Override
-    public boolean removeCandidate(int value) {
-        return this.candidates.remove(value);
+    public boolean removeCandidate(int deleteCandidate) {
+        return this.candidates.remove(deleteCandidate);
     }
 
-
+    @Override
+    public boolean removeCandidates(Set<Integer> deleteCandidates) {
+        return this.candidates.removeAll(deleteCandidates);
+    }
 }

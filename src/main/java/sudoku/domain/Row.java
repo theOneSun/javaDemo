@@ -34,7 +34,7 @@ public class Row extends Module {
         return result;
     }
 
-    @Override
+   /* @Override
     public boolean removeCandidate(final int value) {
         boolean result = false;
         for (Cell cell : cells) {
@@ -43,7 +43,7 @@ public class Row extends Module {
             }
         }
         return result;
-    }
+    }*/
 
     @Override
     public int getIndex() {

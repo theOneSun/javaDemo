@@ -19,6 +19,8 @@ public class FilterRegister {
         result.add(new UniqueInRow());
         result.add(new UniqueInColumn());
 
+        result.add(new SameCombination());
+
 
         return result;
     }

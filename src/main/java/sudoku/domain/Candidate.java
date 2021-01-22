@@ -1,7 +1,5 @@
 package sudoku.domain;
 
-import org.omg.IOP.ComponentIdHelper;
-
 import java.util.Set;
 
 /**
@@ -16,7 +14,9 @@ public interface Candidate {
     void clear();
 
     //删除候选值
-    boolean removeCandidate(int value);
+    boolean removeCandidate(int deleteCandidate);
+
+    boolean removeCandidates(Set<Integer> deleteCandidates);
 
     //todo 增加一些特殊情况的候选数判断,例如双数组和三数组
 }
