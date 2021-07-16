@@ -2,6 +2,8 @@ package study.utils;
 
 import org.junit.Test;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -144,5 +146,22 @@ public class MathUtils
 //            getValueMap()
         }
         return null;
+    }
+
+    @Test
+    public void name() {
+        BigDecimal integral = new BigDecimal(20)//
+                .add(new BigDecimal(20)
+                             .multiply((new BigDecimal(3)))
+                .divide(new BigDecimal(100), RoundingMode.HALF_UP));
+        System.out.println(integral);
+        System.out.println("intValue:" + integral.intValue());
+        int addIntegral = Math.round(integral.floatValue());
+        System.out.println(addIntegral);
+
+        final BigDecimal bigDecimal = new BigDecimal(1.56);
+        System.out.println(bigDecimal.intValue());
+        System.out.println(bigDecimal.floatValue());
+        System.out.println(bigDecimal.setScale(0, RoundingMode.HALF_UP).intValue());
     }
 }

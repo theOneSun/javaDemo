@@ -1,9 +1,7 @@
 package study.baseTest;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
-import study.idata3dsimulate.normal.ElectronicSpecialInvoice;
 import study.utils.MathUtils;
 
 import java.io.UnsupportedEncodingException;
@@ -13,7 +11,6 @@ import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -34,6 +31,10 @@ public class StringTest
 
         System.out.println(LocalDate.now()
                                     .toString().substring(0,7));
+
+        System.out.println(value.substring(value.lastIndexOf(".")+1));
+        String address = "北京市-酒仙桥街道-878东区-3层";
+        System.out.println(address.substring(address.lastIndexOf("-")+1));
     }
 
     @Test
@@ -218,6 +219,7 @@ public class StringTest
     public void testCase(){
         String a = "SELECT * FROM project_data WHERE";
         System.out.println(a.contains("where"));
+        System.out.println("广东省广州市越秀山区".contains("广东"));
     }
 
     @Test
@@ -367,5 +369,11 @@ public class StringTest
             result = result.substring(0, result.length() - 3);
         }
         System.out.println(result);
+    }
+
+    @Test
+    public void testValueOf() {
+        System.out.println("".equals(null));
+        System.out.println(String.valueOf(null));
     }
 }

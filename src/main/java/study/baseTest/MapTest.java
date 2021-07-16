@@ -3,6 +3,7 @@ package study.baseTest;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -92,5 +93,24 @@ public class MapTest {
             Map.Entry entry1 = (Map.Entry) entry;
             System.out.println(entry1.getKey()+"="+entry1.getValue());
         }
+    }
+
+    @Test
+    public void keyAndValue() {
+        Map<String,String> map = new LinkedHashMap<>();
+        for (int i = 0; i < 5; i++) {
+            map.put(String.valueOf(i),"haha"+i);
+        }
+        final Collection<String> values = map.values();
+        System.out.println(values);
+        System.out.println(map.keySet());
+
+        List<Object> header = new  ArrayList<>();
+        Iterator<String> iterator2 = values.iterator();
+        while (iterator2.hasNext()) {
+            header.add(iterator2.next());
+        }
+        header.forEach(System.out::println);
+
     }
 }

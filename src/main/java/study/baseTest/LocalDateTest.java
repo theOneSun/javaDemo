@@ -590,4 +590,11 @@ public class LocalDateTest {
         System.out.println("withDayOfMonth: " + now.withMonth(1).withDayOfMonth(1));
         System.out.println("withDayOfYear,with(): " + now.withDayOfYear(1).with(LocalTime.MIN));
     }
+
+    @Test
+    public void testMonthLast(){
+        System.out.println(LocalDateTime.of(LocalDate.now().withDayOfMonth(1).minusDays(1), LocalTime.MAX));
+        System.out.println(LocalDateTime.of(LocalDate.now().minusMonths(6).withDayOfMonth(1), LocalTime.MIN));
+    }
+
 }

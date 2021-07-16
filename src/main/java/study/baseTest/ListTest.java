@@ -10,6 +10,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -18,6 +19,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * @authur sunjian.
@@ -239,6 +241,39 @@ public class ListTest {
         printList(list);
     }
 
+    @Test
+    public void testModify() {
+        final ArrayList<String> list = new ArrayList<>(3);
+        list.add("公安局哈哈派出所");
+        list.add("公安局呵呵派出所");
+        list.add("公安局嘿嘿派出所");
+        list.add("公安局吼吼派出所");
+
+        for (int i = 0; i <list.size(); i++) {
+        }
+    }
+
+    /*@Test
+    public void testSort() {
+        List<String> strList = new LinkedList<>();
+        List<Object> objList = new LinkedList<>();
+
+        strList.add("haha");
+        objList.add("haha");
+
+        final long timestamp = new Date().getTime() / 1000;
+
+        strList.add(String.valueOf(timestamp));
+        objList.add(timestamp);
+
+        strList.add("123");
+        objList.add("123");
+
+        Collections.sort(strList);
+        Collections.sort(strList);
+
+    }
+*/
     private void printList(List<String> list) {
         list.forEach(System.out::println);
     }
