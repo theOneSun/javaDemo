@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -116,5 +117,16 @@ public class RandomTest
         System.out.println(RandomStringUtils.random(5,false,true));
         System.out.println(RandomStringUtils.random(5,"abcdefghijklmn"));
         System.out.println(RandomStringUtils.randomAlphabetic(5));
+    }
+
+    @Test
+    public void temp() {
+        Random random = new Random();
+
+        for (int i = 0; i < 10; i++) {
+            BigDecimal bg =  new BigDecimal(String.valueOf(60+40*random.nextDouble()));
+            final double result = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            System.out.println(result);
+        }
     }
 }

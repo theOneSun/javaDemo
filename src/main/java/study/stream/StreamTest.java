@@ -9,9 +9,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -67,6 +69,42 @@ public class StreamTest {
             for (Demo demo : entry.getValue()) {
                 System.out.println(entry.getKey()+"=====" +demo.getScore());
             }
+        }
+
+    }
+
+    //测试分组并组内排序
+    @Test
+    public void testGroupSort2() {
+        //模拟数据
+        Random random = new Random();
+        List<Map<String, Object>> list = new ArrayList<>();
+
+        for (int i = 0; i < 20; i++) {
+            Map<String,Object> map = new LinkedHashMap<>();
+            map.put("ukey",String.valueOf(random.nextInt(8)));
+            map.put("time", Math.abs(random.nextLong()));
+            list.add(map);
+        }
+        //分组
+        final Map<String, List<Map<String, Object>>> ukeyMap = list.stream()
+                .collect(Collectors.groupingBy(map -> String.valueOf(map.get("ukey"))));
+
+
+        for (Map.Entry<String, List<Map<String, Object>>> ukeyEntry : ukeyMap.entrySet()) {
+            final List<Map<String, Object>> timeList = ukeyEntry.getValue();
+            final List<Map<String, Object>> sortedList = timeList.stream()
+                    .sorted(Comparator.comparing(map -> Long.valueOf(String.valueOf(map.get("time")))))
+                    .collect(Collectors.toList());
+            //
+
+            System.out.println("---------------");
+            sortedList.forEach(System.out::println);
+            System.out.println("-------输出最大的--------");
+            final Map<String, Object> latest = sortedList.stream()
+                    .max(Comparator.comparing(map -> Long.valueOf(String.valueOf(map.get("time"))))).orElseThrow(()->new RuntimeException("impossible"));
+            System.out.println(latest);
+            System.out.println("---------------");
         }
 
     }
@@ -146,6 +184,39 @@ public class StreamTest {
         list.subList(1, 3).forEach(System.out::println);
         System.out.println("-----------------");
     }
+    @Test
+    public void testLimit() {
+        List<Demo> list = new LinkedList<>();
+        list.add(new Demo(1,1));
+        list.add(new Demo(1,100));
+        list.add(new Demo(2,67));
+        list.add(new Demo(3,67));
+        list.add(new Demo(1,56));
+        final List<Demo> limitList = list.stream()
+                .sorted(Comparator.comparing(Demo::getScore).reversed())
+                .limit(3)
+                .collect(Collectors.toList());
+        limitList.forEach(System.out::println);
+
+        final List<Demo> subList = list.stream()
+                .sorted(Comparator.comparing(Demo::getScore).reversed())
+                .collect(Collectors.toList()).subList(0,3);
+        subList.forEach(System.out::println);
+    }
+
+
+    @Test
+    public void testStringSort() {
+        String a = "2021-9";
+        String b = "2021-8";
+        String c = "2021-11";
+        List<String> list = new LinkedList<>();
+        list.add(a);
+        list.add(b);
+        list.add(c);
+        final List<String> result = list.stream().sorted().collect(Collectors.toList());
+        result.forEach(System.out::println);
+    }
 
     @AllArgsConstructor
     @Getter
@@ -154,4 +225,6 @@ public class StreamTest {
         private Integer age;
         private Integer score;
     }
+
+
 }

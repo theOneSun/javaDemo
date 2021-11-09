@@ -51,4 +51,20 @@ public class BigDecimalTest
         System.out.println(b.intValue());
 
     }
+
+    @Test
+    public void testSetScale() {
+        final BigDecimal bigDecimal = new BigDecimal("123.19237");
+        final BigDecimal result = bigDecimal.setScale(0, BigDecimal.ROUND_HALF_UP);
+        System.out.println(String.valueOf(result));
+        final BigDecimal result2 = bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP);
+        System.out.println(String.valueOf(result2));
+    }
+
+    @Test
+    public void testMultiply() {
+        final BigDecimal bigDecimal = new BigDecimal("0.19237");
+        final BigDecimal bigDecimal1 = new BigDecimal(100.23);
+        System.out.println(bigDecimal.multiply(new BigDecimal("100")).setScale(-1,BigDecimal.ROUND_HALF_UP));
+    }
 }

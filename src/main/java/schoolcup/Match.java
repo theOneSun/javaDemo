@@ -2,6 +2,7 @@ package schoolcup;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
@@ -33,11 +34,31 @@ class Match {
      */
     private Team bye;
 
-    @Override
-    public String toString() {
-        return "Match{" + "number=" + number + ", beginTime=" + beginTime + ", endTime=" + endTime + ", home=" + home.getName() + ", guest=" + guest
-                .getName() + ", bye=" + bye.getName() + '}';
-    }
+    /**
+     * 主队进球
+     */
+    private Integer homeGoal;
+    /**
+     * 客队进球
+     */
+    private Integer guestGoal;
+    /**
+     * 主队黄牌
+     */
+    private Integer homeYellow;
+    /**
+     * 客队黄牌
+     */
+    private Integer guestYellow;
+    /**
+     * 主队红牌
+     */
+    private Integer homeRed;
+    /**
+     * 客队黄牌
+     */
+    private Integer guestRed;
+
 
     public Match(Integer number, Team home, Team guest, Team bye) {
         this.number = number;

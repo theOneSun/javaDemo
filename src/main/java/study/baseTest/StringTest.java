@@ -12,6 +12,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * @authur sunjian.
@@ -35,6 +37,10 @@ public class StringTest
         System.out.println(value.substring(value.lastIndexOf(".")+1));
         String address = "北京市-酒仙桥街道-878东区-3层";
         System.out.println(address.substring(address.lastIndexOf("-")+1));
+        System.out.println(address.substring(0,address.lastIndexOf("-")));
+
+        String yearWeek = "2021-19周";
+        System.out.println(yearWeek.substring(0,yearWeek.length()-1));
     }
 
     @Test
@@ -192,6 +198,7 @@ public class StringTest
     public void testSplit(){
         String a = "123123";
         String[] split = a.split(",");
+        System.out.println("length="+split.length);
         for (String b : split)
         {
             System.out.println(b);
@@ -375,5 +382,35 @@ public class StringTest
     public void testValueOf() {
         System.out.println("".equals(null));
         System.out.println(String.valueOf(null));
+    }
+
+    @Test
+    public void testUUIDReplace() {
+        System.out.println(UUID.randomUUID().toString().replaceAll("-", ""));
+        System.out.println(UUID.randomUUID().toString().replace("-", ""));
+    }
+
+    @Test
+    public void testDateStrSort() {
+        List<String> dateList = new ArrayList<>();
+        dateList.add("2021-09-01");
+        dateList.add("2021-09-12");
+        dateList.add("2021-09-14");
+        dateList.add("2021-09-11");
+
+        final List<String> sortedList = dateList.stream().sorted().collect(Collectors.toList());
+        sortedList.forEach(System.out::println);
+    }
+
+    @Test
+    public void testDrop() {
+        String firstName = "二级指标";
+        String firstMsg = "二级指标内容";
+        String secondName = "三级指标";
+        String secondMsg = "三级指标计算方式";
+
+        StringBuilder builder = new StringBuilder();
+        builder.append(firstName).append(":").append(firstMsg).append("\\r\\n").append(secondName).append(":").append(secondMsg);
+        System.out.println(builder.toString());
     }
 }

@@ -47,4 +47,10 @@ public class DateTest
         System.out.println(calendar.getTimeInMillis()/1000);
     }
 
+    @Test
+    public void comePareDate() {
+        System.out.println(new Date());
+        System.out.println(new Date(System.currentTimeMillis()));
+    }
+
 }

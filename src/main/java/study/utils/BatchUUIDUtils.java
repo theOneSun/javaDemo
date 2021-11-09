@@ -14,15 +14,15 @@ public class BatchUUIDUtils
 {
     @Test
     public void printUUIDBatch() {
-        int max = 10;
+        int max = 50;
         for (int i = 0; i < max; i++) {
-            System.out.println(UUID.randomUUID());
+            System.out.println(UUID.randomUUID().toString().replaceAll("-",""));
         }
     }
 
     @Test
     public void writeUUID() throws IOException {
-        int max = 43830;
+        int max = 230;
         FileWriter fw = new FileWriter(new File("uuidResult.txt" ));
         for (int i = 0; i< max; i++){
             fw.write(UUID.randomUUID().toString()+"\r\n");

@@ -18,7 +18,10 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -272,9 +275,15 @@ public class LocalDateTest {
     @Test
     public void testUntil() {
         final LocalDate now = LocalDate.now();
-        final LocalDate of = LocalDate.of(2020, 1, 10);
+        final LocalDate of = LocalDate.of(2021, 10, 27);
         final long until = now.until(of, ChronoUnit.DAYS);
         System.out.println(until);
+        //测试循环到现在
+        System.out.println("-----");
+        for (int i = 0 ; i<of.until(now,ChronoUnit.DAYS);i++){
+            System.out.println(of.plusDays(i));
+        }
+        System.out.println("-----");
 
         final LocalDateTime timeNow = LocalDateTime.now();
         final LocalDateTime timeOf = LocalDateTime.of(2020, 4, 12, 0, 20, 33);
@@ -597,4 +606,106 @@ public class LocalDateTest {
         System.out.println(LocalDateTime.of(LocalDate.now().minusMonths(6).withDayOfMonth(1), LocalTime.MIN));
     }
 
+    @Test
+    public void testWeek(){
+        String weekParam = "2021-37";
+
+        final LocalDate now = LocalDate.now();
+        final LocalDate with = now.with(MONDAY);
+        System.out.println("今天:"+now);
+        System.out.println("开始:"+with);
+        System.out.println("结束:"+now.with(SUNDAY));
+    }
+
+    @Test
+    public void testConvertDate(){
+        final Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, 2021);
+        calendar.set(Calendar.WEEK_OF_YEAR, 42);
+        //周日
+        calendar.set(Calendar.DAY_OF_WEEK, 1);
+        final Date beginDate = calendar.getTime();
+        System.out.println(beginDate);
+        System.out.println(beginDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+    }
+
+    @Test
+    public void testWeekOfYear(){
+        final LocalDate now = LocalDate.now();
+        System.out.println(now.get(WeekFields.ISO.weekOfYear()));
+        final LocalDate of = LocalDate.of(2021, 1, 2);
+        System.out.println(of.get(WeekFields.ISO.weekOfYear()));
+        final LocalDate last = LocalDate.of(2020, 12, 31);
+        System.out.println(last.get(WeekFields.ISO.weekOfYear()));
+        System.out.println(last.with(SUNDAY));
+    }
+
+    @Test
+    public void testCalendar2LocalDate(){
+        final Calendar calendar = Calendar.getInstance();
+//        System.out.println(calendar);
+        calendar.setFirstDayOfWeek(Calendar.MONDAY);
+        calendar.set(Calendar.YEAR, 2021);
+        calendar.set(Calendar.WEEK_OF_YEAR, 41);
+        calendar.setMinimalDaysInFirstWeek(4);
+        LocalDate localDate = LocalDateTime.ofInstant(calendar.toInstant(), calendar.getTimeZone().toZoneId()).toLocalDate();
+
+        System.out.println(localDate);
+        System.out.println(localDate.get(WeekFields.ISO.weekOfYear()));
+
+        /*LocalDate lw= parseWeek("2021-41");
+        System.out.println(lw.with(MONDAY));
+        System.out.println(lw.with(SUNDAY));*/
+
+    }
+
+    @Test
+    public void testISO8601() {
+
+        printYearWeek("2021-41");
+        printYearWeek("2021-1");
+        printYearWeek("2020-53");
+    }
+
+    @Test
+    public void testTemp() {
+        final LocalDate firstDate = LocalDate.of(2021, 9, 1);
+        final LocalDate weekBegin = firstDate.with(MONDAY);
+        final LocalDate weekEnd = firstDate.with(SUNDAY);
+
+        System.out.println(weekBegin);
+        System.out.println(weekEnd);
+
+        final LocalDate lastDate = LocalDate.of(2021, 10, 20);
+        System.out.println(lastDate.get(WeekFields.ISO.weekOfYear()));
+    }
+
+    private void printYearWeek(String yearWeek){
+        final String[] yearWeekArray = yearWeek.split("-");
+        final int year = Integer.parseInt(yearWeekArray[0]);
+        final int week = Integer.parseInt(yearWeekArray[1]);
+        final Calendar calendar = Calendar.getInstance();
+        calendar.setFirstDayOfWeek(Calendar.MONDAY);
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.WEEK_OF_YEAR, week);
+        calendar.setMinimalDaysInFirstWeek(4);
+        final LocalDate ld = LocalDateTime.ofInstant(calendar.toInstant(), calendar.getTimeZone().toZoneId())
+                                                 .toLocalDate();
+        System.out.println(yearWeek+":");
+        System.out.println("周一:"+ld.with(MONDAY));
+        System.out.println("周日:"+ld.with(SUNDAY));
+        System.out.println("-------------------------");
+    }
+
+    @Test
+    public void name() {
+        String a = "9.41 ";
+        System.out.println(a.trim().length());
+    }
+
+    @Test
+    public void temp() {
+        final LocalDate of = LocalDate.of(2021, 10, 27);
+        System.out.println(of.withDayOfMonth(1).equals(LocalDate.now().withDayOfMonth(1)));
+    }
 }
