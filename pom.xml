@@ -16,7 +16,7 @@
         <commons-collections4.version>4.3</commons-collections4.version>
         <jackson-databind.version>2.9.6</jackson-databind.version>
         <cglib.version>3.3.0</cglib.version>
-        <commons-net.version>3.6</commons-net.version>
+        <commons-net.version>3.9.0</commons-net.version>
         <hutool-all.version>5.5.0</hutool-all.version>
         <poi.version>4.1.2</poi.version>
         <easyexcel.version>2.2.6</easyexcel.version>
